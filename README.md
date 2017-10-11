@@ -1,5 +1,18 @@
 # Passo a Passo - Aplicação UVA
 
+Tecnologias Base:
+    ReactJS
+    Node
+    MongoDB
+
+Ferramentas:
+    VSCode
+    Git
+    GitHub
+    MongoDB
+    NPM
+    create-react-app
+
 Back-end:
 
     $ mkdir todoapp && cd todoapp
