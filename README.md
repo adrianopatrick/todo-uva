@@ -1,11 +1,13 @@
 # Passo a Passo - Aplicação UVA
 
 Tecnologias Base:
+
     - ReactJS
     - Node
     - MongoDB
 
 Ferramentas:
+
     - VSCode
     - Git & GitHub
     - MongoDB
