@@ -1,0 +1,21 @@
+{
+  "name": "todoback",
+  "author": "adrianopatrick@gmail.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/loader.js",
+  "scripts": {
+    "dev": "nodemon",
+    "prod": "pm2 start src/loader.js --name todo-app"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.1",
+    "node-restful": "^0.2.6",
+    "nodemon": "^1.12.1",
+    "pm2": "^2.7.1"
+  }
+}
