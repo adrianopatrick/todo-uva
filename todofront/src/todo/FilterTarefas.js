@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 class FilterTarefas extends React.Component {
 
     render() {
+        const {add, clear} = this.props;
         return (
             <div className="container">
                 <div>
@@ -20,16 +21,13 @@ class FilterTarefas extends React.Component {
                 </div>
                 <div>
                     <RaisedButton
+                        onClick={add}
                         className="smallButton"
                         primary={true}
                         icon={<FontIcon className="material-icons">add</FontIcon>}
                     />
                     <RaisedButton
-                        className="smallButton"
-                        default={true}
-                        icon={<FontIcon className="material-icons">search</FontIcon>}
-                    />
-                    <RaisedButton
+                        onClick={clear}
                         className="smallButton"
                         secondary={true}
                         icon={<FontIcon className="material-icons">close</FontIcon>}

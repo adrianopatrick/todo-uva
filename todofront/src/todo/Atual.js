@@ -12,8 +12,44 @@ class Atual extends React.Component {
             filter: '', tarefasOnDemand: []
         };
 
+        this.add = this.add.bind(this);
+        this.clear = this.clear.bind(this);
+        this.search = this.search.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.refresh = this.refresh.bind(this);
+    }
+
+    clear = () => {
+        this.setState({ ...this.state, filter: '' }, this.search)
+    }
+
+    search = () => {
+        fetch(URLS.SERVER + URLS.GET_NAO_ARMAZENADOS, { method: 'GET' })
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        this.setState({ ...this.state, tarefas: json, tarefasOnDemand: json });
+                    });
+                } else {
+                    console.log('Nenhuma tarefa cadastrada!');
+                }
+            })
+            .catch(error => {
+                console.log('Servidor fora do ar! ' + error);
+            });
+    }
+
+    add = (descricao) => {
+        fetch(URLS.SERVER, {
+            method: 'POST', headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({ descricao: this.state.filter })
+        })
+            .then(response => {
+                this.setState({ ...this.state, filtro: '' });
+                this.search();
+            })
     }
 
     refresh = () => {
@@ -31,26 +67,16 @@ class Atual extends React.Component {
     render() {
         return this.props.show ? (
             <div>
-                <FilterTarefa filter={this.state.filter} handleChange={this.handleChange} />
-                <ListTarefas tarefasOnDemand={this.state.tarefasOnDemand}/>
+                <FilterTarefa filter={this.state.filter} handleChange={this.handleChange}
+                    add={this.add} clear={this.clear} />
+                <ListTarefas tarefasOnDemand={this.state.tarefasOnDemand} 
+                    search={this.search}/>
             </div>
         ) : null
     }
 
     componentWillMount() {
-        fetch(URLS.SERVER + URLS.GET_NAO_ARMAZENADOS, { method: 'GET' })
-            .then(response => {
-                if (response.ok) {
-                    response.json().then(json => {
-                        this.setState({ ...this.state, tarefas: json, tarefasOnDemand: json });
-                    });
-                } else {
-                    console.log('Nenhuma tarefa cadastrada!');
-                }
-            })
-            .catch(error => {
-                console.log('Servidor fora do ar! ' + error);
-            });
+        this.search();
     }
 }
 
