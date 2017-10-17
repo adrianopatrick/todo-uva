@@ -1,0 +1,15 @@
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.container {
+    box-sizing: border-box;
+    margin: 0 20px;
+}
+
+.smallButton {
+    min-width: 40px !important;
+    margin-right: 10px;
+}

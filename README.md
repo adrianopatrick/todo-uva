@@ -28,3 +28,10 @@ Back-end:
 
 Front-end:
 
+    $ npm install -g create-react-app
+    $ create-react-app todofront
+    $ cd todofront
+
+    $ npm install material-ui
+
+
