@@ -20,15 +20,15 @@ class Atual extends React.Component {
     }
 
     clear = () => {
-        this.setState({ ...this.state, filter: '' }, this.search)
+        this.setState({...this.state, filter: ''}, this.search)
     }
 
     search = () => {
-        fetch(URLS.SERVER + URLS.GET_NAO_ARMAZENADOS, { method: 'GET' })
+        fetch(URLS.SERVER + URLS.GET_NAO_ARMAZENADOS, {method: 'GET'})
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
-                        this.setState({ ...this.state, tarefas: json, tarefasOnDemand: json });
+                        this.setState({...this.state, tarefas: json, tarefasOnDemand: json});
                     });
                 } else {
                     console.log('Nenhuma tarefa cadastrada!');
@@ -44,33 +44,35 @@ class Atual extends React.Component {
             method: 'POST', headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }, body: JSON.stringify({ descricao: this.state.filter })
+            }, body: JSON.stringify({descricao: this.state.filter})
         })
             .then(response => {
-                this.setState({ ...this.state, filtro: '' });
+                this.setState({...this.state, filtro: ''});
                 this.search();
             })
     }
 
     refresh = () => {
-        this.setState({
-            ...this.state,
-            tarefasOnDemand: this.state.tarefas.filter(tarefa =>
-                tarefa.descricao.toLowerCase().includes(this.state.filter.toLowerCase()))
-        });
+        if (this.state.tarefas) {
+            this.setState({
+                ...this.state,
+                tarefasOnDemand: this.state.tarefas.filter(tarefa =>
+                    tarefa.descricao.toLowerCase().includes(this.state.filter.toLowerCase()))
+            });
+        }
     }
 
     handleChange = (event) => {
-        this.setState({ ...this.state, filter: event.target.value }, this.refresh);
+        this.setState({...this.state, filter: event.target.value}, this.refresh);
     }
 
     render() {
         return this.props.show ? (
             <div>
                 <FilterTarefa filter={this.state.filter} handleChange={this.handleChange}
-                    add={this.add} clear={this.clear} />
-                <ListTarefas tarefasOnDemand={this.state.tarefasOnDemand} 
-                    search={this.search}/>
+                              add={this.add} clear={this.clear}/>
+                <ListTarefas tarefasOnDemand={this.state.tarefasOnDemand}
+                             search={this.search}/>
             </div>
         ) : null
     }
